@@ -19,4 +19,4 @@ export const store = configureStore ({
         promise,
         logger,
     ]
-})
+});

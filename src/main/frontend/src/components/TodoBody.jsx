@@ -9,14 +9,11 @@ export default function TodoBody() {
   const update = useSelector((state) => state.update);
   const [editInput, setEditInput] = useState(update ? update.text : "");
 
-  const { getAllTodo, removeTodo } = bindActionCreators(
+  const { getAllTodo, removeTodo, updateTodo } = bindActionCreators(
     actionTodo,
     useDispatch()
   );
-  const { setUpdateTodo, saveUpdateTodo } = bindActionCreators(
-    actionUpdate,
-    useDispatch()
-  );
+  const { setUpdateTodo } = bindActionCreators(actionUpdate, useDispatch());
 
   useEffect(() => {
     getAllTodo();
@@ -28,8 +25,8 @@ export default function TodoBody() {
   };
 
   const saveUpdate = (id) => {
-    const updatedTodo = { id, text: editInput };
-    saveUpdateTodo(updatedTodo);
+    const body = { todoId: id, todo: editInput };
+    updateTodo(body);
   };
 
   return todos.map((data, index) => (
@@ -44,7 +41,7 @@ export default function TodoBody() {
           />
         </div>
         <div className="actions">
-          {update.todoId !== data.todoid ? (
+          {update.todoId !== data.todoId ? (
             <button className="edit" onClick={() => setUpdate(data)}>
               Edit
             </button>

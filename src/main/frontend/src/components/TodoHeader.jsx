@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import * as todoAction from "../redux/actions/actionTodo";
+import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { useDispatch } from "react-redux/es/exports";
+import * as todoAction from "../redux/actions/actionTodo";
 
 export default function TodoHeader() {
   const [input, setInput] = useState("");
   const inputRef = useRef(null);
-
   const { addTodo } = bindActionCreators(todoAction, useDispatch());
 
   useEffect(() => {
@@ -15,10 +14,7 @@ export default function TodoHeader() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTodo({
-      id: Math.floor(Math.random() * 100000),
-      text: input,
-    });
+    addTodo(input);
     setInput("");
   };
 
